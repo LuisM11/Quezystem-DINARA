@@ -19,6 +19,12 @@ html,body{
    /*  position: relative; */
 }
 
+.prmAntB button{
+  background-color: #243763;
+}
+
+
+/* AUTH */
 .auth-label-placeholder{
     
   color:gray;

@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react'
 import bgVideo from '../../../assets/video.mp4'
 import Quizystem from '../../../assets/QLogo1.png'
 import DinaraLogo from '../../../assets/DLogo.png'
-/* import '../Auth.css' */
 
 export const LoginPage = () => {
 
