@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Quizystem from '../assets/QLogoWhite.png'
 import femavatar from '../assets/femAvatar.png'
-import { UilApps, UilUsersAlt, UilCommentAltQuestion, UilCog, UilQuestionCircle, UilUserCircle } from '@iconscout/react-unicons'
-import { Dropdown } from 'antd'
+import { UilApps, UilUsersAlt, UilCommentAltQuestion, UilCog, UilQuestionCircle, UilUserCircle, UilSignout, UilEditAlt } from '@iconscout/react-unicons'
+import { Dropdown, Breadcrumb, message } from 'antd'
+import { HomeOutlined, DownCircleOutlined } from '@ant-design/icons';
 
 export const Home = () => {
+  const [studentsOpen, setstudentsOpen] = useState(false)
 
   const handleMenuClick = (e) => {
     message.info('Click on menu item.');
@@ -12,24 +14,15 @@ export const Home = () => {
   };
   const items = [
     {
-      label: '1st menu item',
+      label: 'Edit Profile',
       key: '1',
+      icon: <UilEditAlt className="w-5" />
     },
     {
-      label: '2nd menu item',
+      label: 'Log out',
       key: '2',
-    },
-    {
-      label: '3rd menu item',
-      key: '3',
-      danger: true,
-    },
-    {
-      label: '4rd menu item',
-      key: '4',
-      danger: true,
-      disabled: true,
-    },
+      icon: <UilSignout className="w-5" />
+    }
   ];
   const menuProps = {
     items,
@@ -40,7 +33,7 @@ export const Home = () => {
     <div className='flex w-full min-h-screen h-auto'>
 
       <aside className='fixed flex flex-col justify-between h-screen min-w-[230px] w-[20%] bg-primary overflow-y-auto'>
-        <img src={Quizystem} alt="LogoQuizystem" className='w-2/3 mx-auto mt-1' />
+        <img src={Quizystem} alt="LogoQuizystem" className='w-1/2 ml-3 mt-2' />
 
         <div className='my-8 flex flex-col  items-center'>
           <figure className='my-2 w-16 h-16 bg-white rounded-full overflow-hidden'>
@@ -59,9 +52,18 @@ export const Home = () => {
               <UilApps className='w-5 mr-2 h-full' />
               <span className=''>Home</span>
             </li>
-            <li className='border-l-[6px] border-l-primary pl-5 flex items-center'>
-              <UilUsersAlt className='w-5 mr-2 h-full' />
-              <span className=''>Students</span>
+            <li onClick={()=>setstudentsOpen(p => !p)} className='border-l-[6px] border-l-primary pl-5 '>
+              <div className='w-full flex items-center justify-between'>
+                <div className='flex'>
+                  <UilUsersAlt className='w-5 mr-2 h-full' />
+                  <span className=''>Students</span>
+                </div>
+                <DownCircleOutlined />
+              </div>
+              <div className={ studentsOpen ? "transition-all ease-linear duration-300 h-12 ":" transition-all duration-300 ease-linear text-[2px] h-0 invisible " }>
+                <p className=''>f</p>
+                <p>f</p>
+              </div>
             </li>
             <li className='border-l-[6px] border-l-primary pl-5 flex items-center'>
               <UilCommentAltQuestion className='w-5 mr-2 h-full' />
@@ -70,31 +72,50 @@ export const Home = () => {
           </ul>
 
           <ul className='flex flex-col gap-2 list-none  text-white mt-4'>
-            <il className='border-l-[6px] border-l-primary pl-5 flex items-center'>
+            <li className='border-l-[6px] border-l-primary pl-5 flex items-center'>
+
               <UilCog className='w-5 mr-2 h-full' />
               <span>Settings</span>
-            </il>
-            <il className='border-l-[6px] border-l-primary pl-5 flex items-center'>
+
+            </li>
+            <li className='border-l-[6px] border-l-primary pl-5 flex items-center'>
               <UilQuestionCircle className='w-5 mr-2 h-full' />
               <span>Help</span>
-            </il>
+            </li>
           </ul>
 
 
         </nav>
-        {/* <span className='mx-4 text-white font-light'>Medellin, Colombia 2023</span> */}
+        {/* <hr className='mx-auto w-[80%]' />
+        <span className='h-16 mx-4 text-white font-light my-auto'>Medellin, Colombia 2023</span> */}
 
 
       </aside>
+      <div className='min-w-[230px] w-[20%]'></div> {/*fake aside -> div with Aside dimensions */}
 
-      <main className=' ml-auto w-[80%] '>
+      <main className='w-[80%]'>
 
-        <div className='w-full bg-white flex justify-end py-2 shadow'>
+        <div className='w-full bg-white flex items-center justify-between py-2 shadow'>
+          <Breadcrumb
+            className='mx-2'
+            items={[
+              {
+                title:
+                  <>
+                    <HomeOutlined />
+                    <span>Home</span>
+                  </>,
+
+              },
+              { title: "Page" }
+
+            ]}
+          />
           <Dropdown.Button
-            className='w-auto mx-1 ' trigger={['click', 'hover']} 
+            className='w-auto mx-1 ' trigger={['click', 'hover']}
             menu={menuProps}
             icon={<UilUserCircle className="w-[80%] mx-auto" />}>
-              mariasmo@unal.edu.co
+            mariasmo@unal.edu.co
           </Dropdown.Button>
         </div>
 

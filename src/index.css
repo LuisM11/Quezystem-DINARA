@@ -18,7 +18,7 @@ html,body{
     min-height: 100vh;
    /*  position: relative; */
 }
-
+/* ANT-TW BUTTON BUG */
 .prmAntB button{
   background-color: #243763;
 }
@@ -26,7 +26,6 @@ html,body{
 
 /* AUTH */
 .auth-label-placeholder{
-    
   color:gray;
   top:38px;
   z-index: 1;

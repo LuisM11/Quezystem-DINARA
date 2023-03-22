@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.0.1",
     "@iconscout/react-unicons": "^2.0.0",
     "@iconscout/react-unicons-solid": "^1.0.0",
     "antd": "^5.3.2",
