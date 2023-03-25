@@ -24,7 +24,7 @@ html,body{
 }
 
 
-/* AUTH */
+/* AUTH LABELS---------------------------*/
 .auth-label-placeholder{
   color:gray;
   top:38px;
@@ -35,11 +35,22 @@ html,body{
 }
 .auth-label-transition{
   color: #243763;
-  top:15%;
+  top:12px;
   font-size: 15px;
   transition: all 0.5s ease;
 }
+.error-auth-label{
+  color: rgb(220 38 38);
+}
+/* ---------------------------------- */
 
+.menuDropDown-open{
+  transition: height 0.3s ease, visibility  ;
+
+}
+.menuDropDown-closed{
+
+}
 
 
 
