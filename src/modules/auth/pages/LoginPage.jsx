@@ -1,18 +1,25 @@
 import React, { useRef, useState } from 'react'
 import bgVideo from '../../../assets/video.mp4'
 import Quizystem from '../../../assets/QLogo1.png'
+import { Spinner } from '../../../assets/svg/Spinner'
 import DinaraLogo from '../../../assets/DLogo.png'
+
 import { useForm } from "react-hook-form";
+import { useLogin } from '../../hooks/useLogin';
+import { Alert } from 'antd'
+import {UilEye, UilEyeSlash} from '@iconscout/react-unicons'
+
 
 export const LoginPage = () => {
 
-  const {register,handleSubmit,formState: { errors }} = useForm();
-
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const [visiblePassword, setvisiblePassword] = useState(false)
   const email = useRef(null)
   const passwordRef = useRef(null)
-
+  const login = useLogin()
+  
   const onSubmit = (data) => {
-    console.log(data,errors)
+    login.mutate(data)
   };
 
   return (
@@ -27,17 +34,17 @@ export const LoginPage = () => {
 
           <div>
             <figure>
-              <img onClick={()=> console.log(errors)} src={Quizystem} alt="QuizystemLogo" />
+              <img src={Quizystem} alt="QuizystemLogo" />
             </figure>
 
             <form onSubmit={handleSubmit(onSubmit)} className='grid grid-cols-1 gap-1 w-full' action="">
               <div className=''>
-                <label ref={email} htmlFor="email" className='auth-label-placeholder text-lg bg-white relative px-2 left-2'> 
-                Email 
+                <label ref={email} htmlFor="email" className='auth-label-placeholder text-lg bg-white relative px-2 left-2'>
+                  Email
                 </label>
-                {email.current?
-                 errors.email ? email.current.classList.add('error-auth-label') : email.current.classList.remove('error-auth-label')
-                : undefined
+                {email.current ?
+                  errors.email ? email.current.classList.add('error-auth-label') : email.current.classList.remove('error-auth-label')
+                  : undefined
                 }
                 <input
                   type="text"
@@ -54,7 +61,7 @@ export const LoginPage = () => {
                   })}
                   onFocus={() => {
                     email.current.classList.remove('auth-label-placeholder')
-                    email.current?.classList.add('auth-label-transition')              
+                    email.current?.classList.add('auth-label-transition')
                   }}
                   onBlur={(e) => {
                     if (e.currentTarget.value === '') {
@@ -62,8 +69,8 @@ export const LoginPage = () => {
                       email.current?.classList.add('auth-label-placeholder')
                     }
                   }}
-                  className={ errors.email? 
-                    'w-full px-3 border-[1px] h-12 rounded-md border-red-600 focus:outline-none focus:border-red-600':
+                  className={errors.email ?
+                    'w-full px-3 border-[1px] h-12 rounded-md border-red-600 focus:outline-none focus:border-red-600' :
                     'w-full px-3 border-[1px] h-12 rounded-md border-zinc-300 focus:border-primary focus:outline-none'}
                 />
                 {errors?.email?.type === 'required' ? <div className='pl-1 text-red-600 text-sm font-light'> Required </div> : undefined}
@@ -75,47 +82,58 @@ export const LoginPage = () => {
                 <label
                   ref={passwordRef}
                   htmlFor="password"
-                  className="w-min auth-label-placeholder text-lg bg-white relative px-2 left-2"
+                  className="w-min auth-label-placeholder text-lg bg-white relative px-2 left-2 z-10"
                 >
                   Password
                 </label>
-                {passwordRef.current?
-                 errors.password ? passwordRef.current.classList.add('error-auth-label') : passwordRef.current.classList.remove('error-auth-label')
-                : undefined
+                {passwordRef.current ?
+                  errors.password ? passwordRef.current.classList.add('error-auth-label') : passwordRef.current.classList.remove('error-auth-label')
+                  : undefined
                 }
-                <input
-                  type="text"
-                  name="password"
-                  id="password"
-                  {...register("password", {
-                    required: true,
-                    maxLength: 25,
-                    minLength: 6,
-                  })}
-                  onFocus={() => {
-                    passwordRef.current.classList.remove('auth-label-placeholder')
-                    passwordRef.current.classList.add('auth-label-transition')
-                  }}
-                  onBlur={(e) => {
-                    if (e.currentTarget.value === '') {
-                      passwordRef.current.classList.remove('auth-label-transition')
-                      passwordRef.current.classList.add('auth-label-placeholder')
-                    }
-                  }}                  
-                  className={ errors.password? 
-                    'w-full px-3 border-[1px] h-12 rounded-md border-red-600 focus:outline-none focus:border-red-600':
-                    'w-full px-3 border-[1px] h-12 rounded-md border-zinc-300 focus:border-primary focus:outline-none'}
-                />
+                <div className='relative'>
+                  {visiblePassword? 
+                  <UilEyeSlash className='absolute right-2 top-[25%] text-gray-400 cursor-pointer' onClick={() => setvisiblePassword(prev => !prev)}/> 
+                  : <UilEye className='absolute right-2 top-[25%] text-gray-400 cursor-pointer' onClick={() => setvisiblePassword(prev => !prev)}/> }
+
+                  <input
+                    type={visiblePassword? "text" :"password"}
+                    name="password"
+                    id="password"
+                    {...register("password", {
+                      required: true,
+                      maxLength: 25,
+                      minLength: 5,
+                    })}
+                    onFocus={() => {
+                      passwordRef.current.classList.remove('auth-label-placeholder')
+                      passwordRef.current.classList.add('auth-label-transition')
+                    }}
+                    onBlur={(e) => {
+                      if (e.currentTarget.value === '') {
+                        passwordRef.current.classList.remove('auth-label-transition')
+                        passwordRef.current.classList.add('auth-label-placeholder')
+                      }
+                    }}
+                    className={errors.password ?
+                      'pr-8 w-full px-3 border-[1px] h-12 rounded-md border-red-600 focus:outline-none focus:border-red-600' :
+                      'pr-8 w-full px-3 border-[1px] h-12 rounded-md border-zinc-300 focus:border-primary focus:outline-none'}
+                  />
+                </div>
                 {errors?.password?.type === 'required' ? <div className='pl-1 text-red-600 text-sm font-light'> Required </div> : undefined}
-                {errors?.password?.type.includes("Length") ? <div className='text-red-600 text-sm font-light'> Min 6 - Max 25 </div> : undefined}
+                {errors?.password?.type.includes("Length") ? <div className='text-red-600 text-sm font-light'> Min 5 - Max 25 </div> : undefined}
                 <span className='self-end text-sm text-primary cursor-pointer'>¿Forgot your password?</span>
               </div>
 
-              <input
+              <button
                 type="submit"
-                value="Login"
-                className='transition-colors duration-200 ease-linear hover:bg-[#6c799a] bg-primary rounded-md h-10 text-white font-semibold cursor-pointer mt-5'
-              />
+                disabled={login.isLoading}
+                className={(login.isLoading ? "hover:cursor-not-allowed " : "") + 'flex items-center justify-center transition-colors duration-200 ease-linear hover:bg-[#6c799a] bg-primary rounded-md h-10 text-white font-semibold cursor-pointer mt-5'}
+              >
+                {login.isLoading ? <> <Spinner w='25px' /> <span>Verifying</span></> : "Login"}
+              </button>
+
+              {login.isError ? <Alert message="Incorrect credentials, try again." type="error" banner closable showIcon /> : undefined}
+
             </form>
           </div>
 

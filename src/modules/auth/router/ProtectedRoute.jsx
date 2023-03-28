@@ -1,7 +1,12 @@
 import React from 'react'
 
-export const ProtectedRoute = () => {
-  return (
-    <div>ProtectedRoute</div>
-  )
+import { Navigate, Outlet } from 'react-router-dom';
+export const ProtectedRoute = ({ isAllowed, redirectTo = "/auth", children }) => {
+  if (!isAllowed) {
+    return <Navigate to={redirectTo} replace />;
+  }
+
+  return children ? children : <Outlet />;
+
+
 }
