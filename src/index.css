@@ -18,7 +18,7 @@ html,body{
     min-height: 100vh;
    /*  position: relative; */
 }
-/* ANT-TW BUTTON BUG */
+/* ANT-TAILWIND BUTTON BUG */
 .prmAntB button{
   background-color: #243763;
 }

@@ -32,7 +32,7 @@ export const Header = () => {
   return (
     <div className='w-full bg-white flex items-center justify-between py-2 shadow'>
           <Breadcrumb
-            className='ml-5'
+            className='ml-7'
             items={[
               {
                 title:
@@ -47,7 +47,8 @@ export const Header = () => {
             ]}
           />
           <Dropdown.Button
-            className='w-auto mx-1 ' trigger={['click', 'hover']}
+            type='primary'
+            className='prmAntB w-auto mx-1 ' trigger={['click', 'hover']}
             menu={menuProps}
             icon={<UilUserCircle className="w-[80%] mx-auto" />}>
             mariasmo@unal.edu.co
