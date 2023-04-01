@@ -8,6 +8,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { ProtectedRoute } from './modules/auth/router/ProtectedRoute';
 import { RedirectRouter } from './modules/utils/RedirectRouter';
 import { DashboardRouter } from './modules/dashboard/router/DashboardRouter';
+import { Prueba } from './Prueba';
 
 export const AppRouter = () => {
   const queryClient = new QueryClient()
@@ -25,8 +26,9 @@ export const AppRouter = () => {
           >
             <Routes>
               <Route path='/' element={<RedirectRouter/> } />
-              <Route path='/auth/*' element={<ProtectedRoute isAllowed={loggedUser && !loggedUser} redirectTo='/dashboard'> <AuthRouter /></ProtectedRoute>} />
-              <Route path='/dashboard/*' element={loggedUser && <ProtectedRoute isAllowed={!!loggedUser} > <DashboardRouter /> </ProtectedRoute>} />
+              <Route path='/auth/*' element={<ProtectedRoute isAllowed={ !loggedUser} redirectTo='/dashboard'> <AuthRouter /></ProtectedRoute>} />
+              <Route path='/dashboard/*' element={ <ProtectedRoute isAllowed={!!loggedUser} > <DashboardRouter /> </ProtectedRoute>} />
+              <Route path='/oe' element={<Prueba /> } />
               <Route path='*' element={<Navigate to={'/'}/> } />
               <Route />
             </Routes>

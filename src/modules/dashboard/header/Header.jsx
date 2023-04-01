@@ -30,9 +30,9 @@ export const Header = () => {
     onClick,
   };
   return (
-    <div className='w-full bg-white flex items-center justify-between py-2 shadow'>
+    <div className='w-full bg-white flex items-center justify-between py-2 border-b'>
           <Breadcrumb
-            className='ml-7'
+            className='ml-5'
             items={[
               {
                 title:
@@ -47,11 +47,11 @@ export const Header = () => {
             ]}
           />
           <Dropdown.Button
-            type='primary'
-            className='prmAntB w-auto mx-1 ' trigger={['click', 'hover']}
+            
+            className=' w-auto mx-4 ' trigger={['click', 'hover']}
             menu={menuProps}
             icon={<UilUserCircle className="w-[80%] mx-auto" />}>
-            mariasmo@unal.edu.co
+            admin@prueba.com
           </Dropdown.Button>
         </div>
   )

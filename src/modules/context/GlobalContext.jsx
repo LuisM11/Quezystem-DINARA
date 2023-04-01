@@ -4,26 +4,24 @@ import { useLogin } from "../hooks/useLogin";
 const GlobalContext = createContext();
 
 export const useGlobalContext = () => useContext(GlobalContext);
- 
+
 export const ContextProvider = ({ children }) => {
-    const [loggedUser, setloggedUser] = useState(null)
+  const [loggedUser, setloggedUser] = useState(null)
 
-    useEffect(() => {
-      if(!loggedUser &&  localStorage.getItem('user')){
-        setloggedUser(JSON.parse(localStorage.getItem('user')))
-      }
-    }, [])
-    
-    return(
-        <GlobalContext.Provider 
-        value={{
-            loggedUser, setloggedUser,
+  if (!loggedUser && localStorage.getItem('user')) {
+    setloggedUser(JSON.parse(localStorage.getItem('user')))
+  }
 
-        }}
-        >
-            {children}
-        </GlobalContext.Provider>
-        
-    )
+  return (
+    <GlobalContext.Provider
+      value={{
+        loggedUser, setloggedUser,
+
+      }}
+    >
+      {children}
+    </GlobalContext.Provider>
+
+  )
 
 }

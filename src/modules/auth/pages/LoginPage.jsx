@@ -129,7 +129,7 @@ export const LoginPage = () => {
                 disabled={login.isLoading}
                 className={(login.isLoading ? "hover:cursor-not-allowed " : "") + 'flex items-center justify-center transition-colors duration-200 ease-linear hover:bg-[#6c799a] bg-primary rounded-md h-10 text-white font-semibold cursor-pointer mt-5'}
               >
-                {login.isLoading ? <> <Spinner w='25px' /> <span>Verifying</span></> : "Login"}
+                {login.isLoading ? <> <Spinner css={'mx-3'} w='25px' /> <span>Verifying</span></> : "Login"}
               </button>
 
               {login.isError ? <Alert message="Incorrect credentials, try again." type="error" banner closable showIcon /> : undefined}
